@@ -1,8 +1,6 @@
 # RECLAIM — Autonomous Waste Collection and Sorting Robot
 
-RECLAIM is a 5th-year engineering capstone project building an autonomous indoor robot that navigates post-event venues, detects waste on the ground, picks it up with a 6DOF robotic arm, classifies it (recyclable / compost / landfill), and deposits it in the correct bin.
-
-**Demo date: March 26, 2026**
+RECLAIM is a 5th-year engineering capstone project building an autonomous indoor robot that navigates post-event venues, detects waste on the ground, picks it up with a 4DOF robotic arm, classifies it (recyclable / compost / landfill), and deposits it in the correct bin.
 
 ## Hardware
 
