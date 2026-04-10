@@ -1,0 +1,31 @@
+# Shared costmap layer configuration
+# Used by both local and global costmaps
+#
+# Robot: RECLAIM (circular footprint, ~0.20m radius)
+# Environment: Indoor post-event venue (flat, chairs, tables, bins, people)
+
+# Obstacle layer — reads /scan to detect obstacles in real time
+obstacle_layer:
+  plugin: "nav2_costmap_2d::ObstacleLayer"
+  enabled: true
+  observation_sources: scan
+  scan:
+    topic: /scan
+    sensor_model: ray
+    max_obstacle_height: 2.0
+    min_obstacle_height: 0.0
+    obstacle_max_range: 6.0      # Don't trust far-away readings for obstacles
+    obstacle_min_range: 0.15     # RPLIDAR A1M8 minimum range
+    raytrace_max_range: 8.0      # Clear free space up to this range
+    raytrace_min_range: 0.15
+    clearing: true
+    marking: true
+    data_type: "LaserScan"
+    inf_is_valid: false
+
+# Inflation layer — expand obstacles by robot radius + safety margin
+inflation_layer:
+  plugin: "nav2_costmap_2d::InflationLayer"
+  cost_scaling_factor: 3.0       # How fast cost decays from obstacle
+  inflation_radius: 0.25         # Robot radius (0.20m) + 0.05m safety margin
+  # Tight enough to navigate between chair legs (~0.40m gap typical)

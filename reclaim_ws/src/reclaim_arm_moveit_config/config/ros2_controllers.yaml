@@ -1,0 +1,49 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 50  # Hz — matches hobby servo PWM rate
+
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    gripper_controller:
+      type: position_controllers/JointGroupPositionController
+
+arm_controller:
+  ros__parameters:
+    joints:
+      - base_joint
+      - shoulder_joint
+      - elbow_joint
+      - wrist_pitch_joint
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+    open_loop_control: true
+    state_publish_rate: 50.0
+    action_monitor_rate: 20.0
+    allow_partial_joints_goal: false
+    interpolation_method: "splines"
+    constraints:
+      stopped_velocity_tolerance: 0.05
+      goal_time: 0.0
+      base_joint:
+        goal: 0.05
+      shoulder_joint:
+        goal: 0.05
+      elbow_joint:
+        goal: 0.05
+      wrist_pitch_joint:
+        goal: 0.05
+
+gripper_controller:
+  ros__parameters:
+    joints:
+      - gripper_joint
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position

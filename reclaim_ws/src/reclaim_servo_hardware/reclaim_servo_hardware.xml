@@ -1,0 +1,10 @@
+<library path="reclaim_servo_hardware">
+  <class name="reclaim_servo_hardware/ServoHardwareInterface"
+         type="reclaim_servo_hardware::ServoHardwareInterface"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      Hardware interface for RECLAIM 4-DOF servo arm via Teensy serial (SETUS protocol).
+      Reads calibration (zero_us, scale, inverted, min/max) from URDF ros2_control block.
+    </description>
+  </class>
+</library>

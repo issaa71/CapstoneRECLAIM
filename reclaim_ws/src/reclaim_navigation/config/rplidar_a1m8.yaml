@@ -1,0 +1,25 @@
+# RPLIDAR A1M8 driver parameters
+# Device: Slamtec RPLIDAR A1M8
+# Interface: USB serial (/dev/ttyUSB0)
+# Range: 0.15m - 12m, 360 degrees
+# Scan rate: ~5.5 Hz (default motor speed)
+
+rplidar_node:
+  ros__parameters:
+    # Serial port configuration
+    serial_port: "/dev/ttyUSB0"
+    serial_baudrate: 115200
+
+    # Frame configuration
+    frame_id: "laser_link"
+
+    # Scan parameters
+    inverted: false
+    angle_compensate: true
+
+    # Scan mode - use default (Standard) for A1M8
+    # Other options: "Express", "Boost" (A1M8 only supports Standard)
+    scan_mode: ""
+
+    # Topic remapping is done in the launch file
+    # Publishes: /scan (sensor_msgs/LaserScan)

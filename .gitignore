@@ -1,0 +1,147 @@
+# Documents and reports (keep out of repo)
+*.docx
+*.pdf
+*.xlsx
+*.pptx
+*.STEP
+*.step
+*.STL
+*.stl
+~$*
+Final Report/
+Locomotion and Budget/
+URDF Arm Model/
+prototype assembly/
+prototype assembly.STEP
+training_images/
+newest deep research/
+researchingstuff/
+*.md
+!README.md
+!diagrams/*.md
+
+# Node modules
+node_modules/
+
+# Vercel
+.vercel/
+
+# Misc
+=8.4.26
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# PyTest
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# ROS
+devel/
+logs/
+build/
+bin/
+msg_gen/
+srv_gen/
+msg/*Action.msg
+msg/*ActionFeedback.msg
+msg/*ActionGoal.msg
+msg/*ActionResult.msg
+msg/*Feedback.msg
+msg/*Goal.msg
+msg/*Result.msg
+msg/_*.py
+build_isolated/
+devel_isolated/
+
+# ROS2
+install/
+log/
+
+# Gazebo
+*.log
+
+# Robotics specific
+*.bag
+*.bag.active
+
+# Configuration files with sensitive data
+*.yaml.local
+*.json.local
+secrets/
+credentials/
+
+# OS specific
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Environment variables
+.env
+.env.local
+
+# Data files
+data/
+datasets/
+*.csv
+*.pkl
+*.pickle
+
+# Model files
+models/
+*.pth
+*.h5
+*.ckpt
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/

@@ -1,0 +1,49 @@
+poses:
+  home:
+    q: [-32.0, 83.0, 65.0, -85.0, 18.0, 0.0]
+    t_ms: 750
+  home_carry:
+    q: [-32.0, 83.0, 65.0, -85.0, 18.0, -999.0]
+    t_ms: 750
+  prepick:
+    q: [-32.0, 38.0, 65.0, -65.0, 18.0, 0.0]
+    t_ms: 750
+  prepick_carry:
+    q: [-32.0, 38.0, 65.0, -65.0, 18.0, -999.0]
+    t_ms: 750
+  prepick1:
+    q: [-32.0, 18.0, 65.0, -65.0, 18.0, 0.0]
+    t_ms: 750
+  prepick1_carry:
+    q: [-32.0, 18.0, 65.0, -65.0, 18.0, -999.0]
+    t_ms: 750
+  pickup:
+    q: [-32.0, 18.0, 65.0, -65.0, 18.0, 0.0]
+    t_ms: 750
+  bin1_pre:
+    q: [48.0, 83.0, 65.0, -55.0, 28.0, -999.0]
+    t_ms: 1500
+  bin1_drop:
+    q: [48.0, 73.0, 65.0, -65.0, 28.0, 0.0]
+    t_ms: 750
+
+sequences:
+  bin1_cycle:
+  - pose: home
+  - pose: bin1_pre
+  - pose: bin1_drop
+  - pose: bin1_pre
+  - pose: home
+  pickup_bin1:
+  - pose: home
+  - pose: prepick
+  - pose: prepick1
+  - pose: pickup
+  - {action: grip, angle: 45}
+  - pose: prepick1_carry
+  - pose: prepick_carry
+  - pose: home_carry
+  - pose: bin1_pre
+  - pose: bin1_drop
+  - pose: bin1_pre
+  - pose: home

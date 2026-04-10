@@ -1,0 +1,55 @@
+# waste_tracker.yaml — Configuration for the autonomous waste collection state machine.
+#
+# All parameters can be overridden via ros2 launch or ros2 run --ros-args.
+
+waste_tracker:
+  ros__parameters:
+    # ── YOLO model ──
+    model_path: "models/waste_yolo11n_v3_best.pt"   # path on MIC-711 (.pt fallback, .engine has TRT version issue)
+    confidence: 0.40
+
+    # ── Arm PTY (created by teensy_bridge) ──
+    pty_path: "/tmp/teensy_arm"
+
+    # ── Camera mounting transform ──
+    # Camera is mounted on the robot with a downward tilt.
+    # These values define the camera's position relative to base_link.
+    # Tune these on the real robot by comparing camera_to_robot output
+    # with physical measurements.
+    camera_tilt_deg: 15.0     # downward tilt angle (degrees)
+    camera_tx_mm: 0.0         # forward offset from base_link (mm)
+    camera_ty_mm: 0.0         # left offset from base_link (mm)
+    camera_tz_mm: -150.0      # vertical offset from base_link (mm, negative = below)
+
+    # ── SCAN state ──
+    # Robot rotates 360° in place, collecting YOLO detections.
+    scan_angular_vel: 0.25    # rotation speed (rad/s). Faster scan, camera still catches at 30fps.
+    scan_full_rotation: 6.28  # total rotation (rad). 2*pi = full 360°.
+
+    # ── APPROACH state ──
+    # Visual servoing drives robot toward the nearest detected target.
+    # Angular: proportional to pixel offset from image center.
+    # Linear: proportional to distance, capped at max velocity.
+    approach_linear_vel: 0.15     # max forward speed (m/s)
+    approach_angular_gain: 0.001  # pixel offset → angular velocity (rad/s per pixel) — smooth steering
+    approach_linear_gain: 0.0002  # depth (mm) → forward velocity (m/s per mm)
+    approach_stop_distance_mm: 450.0  # stop approaching when depth < this (mm) — keep object in camera FOV
+
+    # ── ALIGN state ──
+    # Fine-positioning before pickup. Robot nudges rotation and distance
+    # until target is centered and within arm reach.
+    align_pixel_tolerance: 25     # acceptable pixel offset from center
+    align_angular_vel: 0.08       # rotation speed for fine adjustment (rad/s) — slow for smooth centering
+    align_stable_frames: 5        # target must be stable for N frames before pickup
+    align_min_depth_mm: 200.0     # arm reach minimum (mm)
+    align_max_depth_mm: 400.0     # arm reach maximum (mm)
+
+    # ── Obstacle avoidance ──
+    # Checks center strip of depth image. If anything is closer than this,
+    # robot stops until the obstacle clears.
+    obstacle_min_depth_mm: 150.0  # stop threshold (mm) — only for real obstacles, not target
+
+    # ── Drive-only mode ──
+    # When true, stops at ALIGN state and does not execute PICK.
+    # Use for drivetrain testing without arm.
+    drive_only: true

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net">
+  <diagram name="Prototype ROS2 Node Graph" id="prototype-nodes">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Background Groups -->
+        <!-- Perception Group -->
+        <mxCell id="g1" value="Perception" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=5;dashed=1;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="900" y="30" width="320" height="200" as="geometry"/>
+        </mxCell>
+
+        <!-- Navigation/Control Group -->
+        <mxCell id="g2" value="Control &amp; State Machine" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=5;dashed=1;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="350" y="250" width="550" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- Manipulation Group -->
+        <mxCell id="g3" value="Manipulation" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=5;dashed=1;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="350" y="480" width="550" height="180" as="geometry"/>
+        </mxCell>
+
+        <!-- Locomotion Group -->
+        <mxCell id="g4" value="Locomotion" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=5;dashed=1;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="30" y="350" width="280" height="160" as="geometry"/>
+        </mxCell>
+
+        <!-- Monitoring Group -->
+        <mxCell id="g5" value="Monitoring" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=5;dashed=1;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="480" width="220" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Hardware Group -->
+        <mxCell id="g6" value="Hardware" style="rounded=1;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14;fontStyle=1;verticalAlign=top;spacingTop=5;dashed=1;opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="30" y="550" width="280" height="130" as="geometry"/>
+        </mxCell>
+
+        <!-- NODES -->
+
+        <!-- TRT Inference Server (not ROS2) -->
+        <mxCell id="n1" value="camera_detect_trt&#xa;&#xa;TensorRT HTTP Server&#xa;Port 8081 | System Python 3.8&#xa;YOLO26n FP16 | 30 FPS" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;" vertex="1" parent="1">
+          <mxGeometry x="930" y="70" width="260" height="90" as="geometry"/>
+        </mxCell>
+
+        <!-- waste_tracker -->
+        <mxCell id="n2" value="waste_tracker&#xa;&#xa;Central FSM: SCAN → APPROACH&#xa;→ PICK → DEPOSIT&#xa;Conda Python 3.11" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="290" width="240" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- robot_state_publisher -->
+        <mxCell id="n3" value="robot_state_publisher&#xa;&#xa;TF tree from URDF" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;" vertex="1" parent="1">
+          <mxGeometry x="700" y="290" width="170" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- teensy_bridge -->
+        <mxCell id="n4" value="teensy_bridge&#xa;&#xa;Serial bridge to Teensy 4.1&#xa;USB /dev/ttyACM0 @ 115200&#xa;Drive + Arm multiplexing" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=center;" vertex="1" parent="1">
+          <mxGeometry x="50" y="390" width="240" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- pick_and_place -->
+        <mxCell id="n5" value="pick_and_place&#xa;&#xa;Arm motion sequence&#xa;MoveGroup action client" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=center;" vertex="1" parent="1">
+          <mxGeometry x="380" y="520" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- move_group -->
+        <mxCell id="n6" value="move_group&#xa;&#xa;MoveIt2 (RRT-Connect, KDL IK)&#xa;OMPL motion planning" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=center;" vertex="1" parent="1">
+          <mxGeometry x="620" y="520" width="220" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- controller_manager -->
+        <mxCell id="n7" value="controller_manager&#xa;&#xa;ros2_control&#xa;ServoHardwareInterface plugin" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=center;" vertex="1" parent="1">
+          <mxGeometry x="500" y="620" width="220" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- foxglove_bridge -->
+        <mxCell id="n8" value="foxglove_bridge&#xa;&#xa;WebSocket ws://:8765&#xa;Visualization + Dashboard" style="rounded=1;whiteSpace=wrap;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="520" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Hardware boxes -->
+        <mxCell id="h1" value="Teensy 4.1&#xa;Encoders + Servos + Motors" style="rounded=0;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=center;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="580" width="240" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="h2" value="OAK-D Lite&#xa;USB 3.0 | 640x480" style="rounded=0;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=center;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="180" width="120" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- TOPIC EDGES -->
+
+        <!-- HTTP: waste_tracker → TRT server -->
+        <mxCell id="e1" value="HTTP GET&#xa;/detect /frame /pose" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#6c8ebf;fontSize=9;fontColor=#6c8ebf;dashed=1;dashPattern=5 5;" edge="1" source="n2" target="n1" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- /cmd_vel: waste_tracker → teensy_bridge -->
+        <mxCell id="e2" value="/cmd_vel" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#b85450;fontSize=9;fontColor=#b85450;" edge="1" source="n2" target="n4" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- /odom: teensy_bridge → waste_tracker -->
+        <mxCell id="e3" value="/odom" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#b85450;fontSize=9;fontColor=#b85450;dashed=1;dashPattern=8 4;" edge="1" source="n4" target="n2" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- pickup actions: waste_tracker → pick_and_place -->
+        <mxCell id="e4" value="/pickup_request&#xa;/pickup_complete" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d6b656;fontSize=9;fontColor=#d6b656;" edge="1" source="n2" target="n5" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- MoveGroup action: pick_and_place → move_group -->
+        <mxCell id="e5" value="MoveGroup&#xa;action" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d6b656;fontSize=9;fontColor=#d6b656;" edge="1" source="n5" target="n6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- joint commands: move_group → controller_manager -->
+        <mxCell id="e6" value="/joint_trajectory" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d6b656;fontSize=9;fontColor=#d6b656;" edge="1" source="n6" target="n7" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- serial: controller_manager → teensy_bridge -->
+        <mxCell id="e7" value="SETUS serial&#xa;commands" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#666666;fontSize=9;fontColor=#666666;dashed=1;" edge="1" source="n7" target="n4" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- /tf: robot_state_publisher broadcast -->
+        <mxCell id="e8" value="/tf" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#82b366;fontSize=9;fontColor=#82b366;" edge="1" source="n3" target="n6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- /joint_states: controller_manager → robot_state_publisher -->
+        <mxCell id="e9" value="/joint_states" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d6b656;fontSize=9;fontColor=#d6b656;" edge="1" source="n7" target="n3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- USB: teensy_bridge → Teensy hardware -->
+        <mxCell id="e10" value="USB Serial&#xa;115200 baud" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#666666;fontSize=9;fontColor=#666666;dashed=1;dashPattern=3 3;" edge="1" source="n4" target="h1" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- USB: OAK-D → TRT server -->
+        <mxCell id="e11" value="USB 3.0" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#666666;fontSize=9;fontColor=#666666;dashed=1;dashPattern=3 3;" edge="1" source="h2" target="n1" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- foxglove subscribes to all -->
+        <mxCell id="e12" value="all topics" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#9673a6;fontSize=9;fontColor=#9673a6;dashed=1;" edge="1" source="n2" target="n8" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Footer note -->
+        <mxCell id="note1" value="All nodes run on Jetson Orin NX (MIC-711), ROS 2 Humble via conda.&#xa;TRT server runs in isolated system Python 3.8. All other nodes in conda Python 3.11.&#xa;Teensy 4.1 communicates via USB serial at 115200 baud." style="text;align=left;fontSize=10;fontColor=#666666;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="30" y="710" width="600" height="60" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

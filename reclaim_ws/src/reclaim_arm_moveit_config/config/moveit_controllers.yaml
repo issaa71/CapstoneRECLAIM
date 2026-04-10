@@ -1,0 +1,22 @@
+# MoveIt2 controller configuration for ros2_control pipeline
+# MoveIt2 sends FollowJointTrajectory action goals to arm_controller,
+# which is ros2_control's JointTrajectoryController.
+
+trajectory_execution:
+  allowed_execution_duration_scaling: 1.2
+  allowed_goal_duration_margin: 0.5
+  allowed_start_tolerance: 0.0
+
+moveit_simple_controller_manager:
+  controller_names:
+    - arm_controller
+
+  arm_controller:
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: true
+    joints:
+      - base_joint
+      - shoulder_joint
+      - elbow_joint
+      - wrist_pitch_joint

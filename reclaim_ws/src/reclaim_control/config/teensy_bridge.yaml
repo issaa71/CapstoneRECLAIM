@@ -1,0 +1,33 @@
+teensy_bridge:
+  ros__parameters:
+    serial_port: "/dev/ttyACM0"
+    baud_rate: 115200
+    pty_link_path: "/tmp/teensy_arm"
+
+    # Robot geometry — MUST BE MEASURED on the physical robot
+    wheel_separation: 0.470     # meters, calibrated from 360° spin test (0.494 overshot by ~18°)
+    wheel_radius: 0.05232       # meters, calibrated iteration 5 (0.048 gave 54.5cm for 50cm expected)
+
+    # Encoder config — JGB37-520: 7 PPR encoder, 270:1 gearbox, x4 quadrature
+    # VERIFY by spinning one full wheel revolution and reading TICKS
+    ticks_per_rev: 7560
+
+    # Odometry polling rate (Hz)
+    odom_rate: 10.0
+
+    # Velocity limits (must match Nav2 params)
+    max_linear_vel: 0.3         # m/s
+    max_angular_vel: 1.0        # rad/s
+
+    # Stop motors if no cmd_vel received within this time
+    cmd_vel_timeout: 0.5        # seconds
+
+    # Closed-loop velocity control (uses SETVEL → Teensy PI controller)
+    # Set to false to use open-loop DRIVE (raw PWM) for testing
+    use_closed_loop: true
+
+    # Acceleration limit (m/s²) — prevents jerky starts/stops
+    max_acceleration: 0.3
+
+    # Heading hold P gain — corrects drift during straight driving
+    heading_hold_kp: 2.0

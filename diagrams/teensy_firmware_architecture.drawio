@@ -1,0 +1,113 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Teensy 4.1 Firmware Architecture" id="firmware-arch">
+    <mxGraphModel dx="1414" dy="784" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ep2" edge="1" parent="1" source="parser" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#b85450;" target="cmd_drive">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="title" parent="1" style="text;align=center;fontSize=18;fontStyle=1;fontColor=#333333;" value="Teensy 4.1 Firmware Architecture" vertex="1">
+          <mxGeometry height="30" width="400" x="400" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="usb" parent="1" style="shape=parallelogram;rounded=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;align=center;perimeter=parallelogramPerimeter;" value="USB Serial&#xa;from MIC-711&#xa;115200 baud" vertex="1">
+          <mxGeometry height="60" width="180" x="50" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="parser" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;fontStyle=1;" value="Serial Command Parser&#xa;&#xa;Reads newline-terminated ASCII&#xa;Dispatches by command prefix" vertex="1">
+          <mxGeometry height="80" width="250" x="320" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="cmd_drive" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=center;" value="DRIVE vel_l vel_r&#xa;&#xa;Set wheel velocities" vertex="1">
+          <mxGeometry height="60" width="170" x="50" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="cmd_setus" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;" value="SETUS j us [T]&#xa;&#xa;Set servo j to us microseconds&#xa;Optional trajectory time T" vertex="1">
+          <mxGeometry height="70" width="200" x="250" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="cmd_grip" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;" value="GRIP us&#xa;&#xa;Set gripper servo" vertex="1">
+          <mxGeometry height="60" width="140" x="480" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="cmd_query" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;" value="ODOM / POS&#xa;&#xa;Query encoder counts&#xa;or servo positions" vertex="1">
+          <mxGeometry height="60" width="160" x="650" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="ep1" edge="1" parent="1" source="usb" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#333;" target="parser">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ep3" edge="1" parent="1" source="parser" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d6b656;" target="cmd_setus">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ep4" edge="1" parent="1" source="parser" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d6b656;" target="cmd_grip">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ep5" edge="1" parent="1" source="parser" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#82b366;" target="cmd_query">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pi" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=center;fontStyle=1;" value="PI Velocity Controller&#xa;&#xa;50 Hz closed-loop&#xa;Kp, Ki per wheel&#xa;Encoder feedback" vertex="1">
+          <mxGeometry height="90" width="210" x="30" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="quintic" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=center;fontStyle=1;" value="Quintic Minimum-Jerk&#xa;Trajectory Interpolator&#xa;&#xa;50 Hz update rate&#xa;Zero velocity at endpoints&#xa;Zero acceleration at endpoints" vertex="1">
+          <mxGeometry height="100" width="230" x="280" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="servo_pwm" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=center;" value="Servo PWM Output&#xa;&#xa;6 channels (pins 10-15)&#xa;500-2500 us range&#xa;50 Hz update" vertex="1">
+          <mxGeometry height="90" width="180" x="550" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="ep6" edge="1" parent="1" source="cmd_drive" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#b85450;" target="pi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ep7" edge="1" parent="1" source="cmd_setus" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d6b656;" target="quintic">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ep8" edge="1" parent="1" source="quintic" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d6b656;" target="servo_pwm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ep8b" edge="1" parent="1" source="cmd_grip" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d6b656;" target="servo_pwm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="isr_bg" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;fontStyle=1;verticalAlign=top;spacingTop=5;dashed=1;opacity=40;" value="Interrupt Service Routines (ISR)" vertex="1">
+          <mxGeometry height="150" width="250" x="830" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="isr_l" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=center;" value="Encoder L ISR&#xa;Pins 6, 7&#xa;Quadrature decode" vertex="1">
+          <mxGeometry height="60" width="100" x="850" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="isr_r" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=center;" value="Encoder R ISR&#xa;Pins 18, 19&#xa;Quadrature decode" vertex="1">
+          <mxGeometry height="60" width="100" x="960" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="ep9" edge="1" parent="1" source="isr_l" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d79b00;fontSize=9;fontColor=#d79b00;dashed=1;" target="pi" value="tick counts">
+          <mxGeometry relative="1" x="0.072" y="-5" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ep10" edge="1" parent="1" source="isr_r" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d79b00;fontSize=9;fontColor=#d79b00;dashed=1;" target="pi" value="tick counts">
+          <mxGeometry relative="1" x="-0.483" y="-10" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hw_motors" parent="1" style="rounded=0;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=center;dashed=1;" value="Motor Drivers&#xa;&#xa;Left: MD10C (pins 2, 3)&#xa;Right: BTS7960 (pins 20, 22)&#xa;PWM + DIR signals" vertex="1">
+          <mxGeometry height="80" width="210" x="30" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="hw_servos" parent="1" style="rounded=0;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=center;dashed=1;" value="Arm Servos (x6)&#xa;&#xa;J1-J4: DS3218 / DS3235&#xa;J5: MG996R | J6: DS3218 (gripper)&#xa;6V bus via buck converter" vertex="1">
+          <mxGeometry height="80" width="230" x="380" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="hw_wheels" parent="1" style="rounded=0;whiteSpace=wrap;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=center;dashed=1;" value="JGB37-520 Motors (x2)&#xa;12V 37RPM&#xa;Hall-effect encoders" vertex="1">
+          <mxGeometry height="60" width="200" x="780" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="ep11" edge="1" parent="1" source="pi" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#b85450;fontSize=9;fontColor=#b85450;" target="hw_motors" value="PWM + DIR">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ep12" edge="1" parent="1" source="servo_pwm" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d6b656;fontSize=9;fontColor=#d6b656;" target="hw_servos" value="PWM us">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ep13" edge="1" parent="1" source="hw_wheels" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#d79b00;fontSize=9;fontColor=#d79b00;dashed=1;" target="isr_bg" value="A/B pulses">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="response" parent="1" style="rounded=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;" value="Serial Response&#xa;to MIC-711&#xa;&#xa;ODOM tick_l tick_r&#xa;POS j1 j2 j3 j4 j5 j6&#xa;OK / ERR" vertex="1">
+          <mxGeometry height="80" width="180" x="850" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ep14" edge="1" parent="1" source="cmd_query" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeColor=#82b366;" target="response">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="footer" parent="1" style="text;align=left;fontSize=10;fontColor=#666666;" value="Teensy 4.1 | ARM Cortex-M7 @ 600 MHz | Main loop: serial parse + PI control + trajectory update at 50 Hz&#xa;Encoder ISRs fire on pin-change interrupts (hardware priority). All timing via elapsedMicros." vertex="1">
+          <mxGeometry height="40" width="700" x="30" y="620" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

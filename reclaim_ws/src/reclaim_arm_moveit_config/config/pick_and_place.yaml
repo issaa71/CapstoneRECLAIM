@@ -1,0 +1,87 @@
+# Pick-and-Place Configuration for RECLAIM
+# All poses are [base_joint, shoulder_joint, elbow_joint, wrist_pitch_joint] in radians
+# Taught on real hardware via RViz + ros2 topic echo /joint_states
+
+poses:
+  # Camera facing down for detection + resting position (taught March 21)
+  home: [0.0, 0.567, 1.331, -1.867]
+
+  # Camera angled forward for scanning while driving (taught March 24)
+  search: [0.0, 1.263, 1.354, -1.931]
+
+  # Camera at ~45° between search and home — keeps object in view during close approach (taught March 24)
+  intermediate: [0.0, 0.863, 1.331, -1.867]
+
+  # Safe overhead waypoint — arm goes here after pickup before moving to bin (taught March 25)
+  safe_waypoint: [0.0, 0.643, 0.349, -1.555]
+
+  # Above each bin for deposit (taught March 25)
+  pre_bin_recyclable: [-1.953, 0.116, -0.044, -1.646]   # right bin
+  pre_bin_compost: [2.608, -0.091, -0.030, -1.386]      # back left bin
+  pre_bin_landfill: [2.146, 0.116, -0.044, -1.646]      # left bin
+
+  # Pickup poses — J1 is overridden by atan2(Y,X) from detection
+  # J2, J3, J4 are fixed for reaching down to ground level
+  # PLACEHOLDER — teach these on the real arm!
+  pre_pick: [0.0, 0.8, 0.8, -1.6]     # hover above pickup zone
+  pick: [0.0, 1.0, 1.2, -1.8]         # lowered to grab object on ground
+
+gripper:
+  open: 0.0         # 0 rad = 1400us = fully open
+  close: 0.7        # default grip strength
+  close_delay: 0.5  # seconds to wait after closing
+  open_delay: 0.3   # seconds to wait after opening
+  # Per-class grip strength (overrides 'close' for specific classes)
+  class_grip:
+    aluminum_can: 0.7
+    paper_cup: 0.7
+    plastic_bottle: 0.8
+    napkin: 0.8
+    chip_bag: 0.8
+    apple: 0.7
+
+pickup:
+  approach_height: 0.05      # meters above object for pre-pick
+  max_velocity_scaling: 0.6
+  max_acceleration_scaling: 0.1
+  planning_time: 5.0
+  num_planning_attempts: 10
+
+# Calibration offsets (measured March 24)
+calibration:
+  detection_offset_x: -0.013   # X offset (was -0.020, +7mm forward)
+  detection_offset_y: 0.010    # Y reads 10mm too far right
+  detection_offset_z: -0.003   # Z offset (was 0.0, -3mm lower)
+  use_detected_z: true         # use raw camera Z from TF transform
+
+# Per-class pickup offsets (meters, added ON TOP of global calibration offsets)
+# Positive X = further forward, Negative Z = lower
+class_offsets:
+  aluminum_can: {x: 0.020, y: 0.0, z: -0.020}
+  plastic_bottle: {x: 0.015, y: 0.0, z: 0.0}
+  paper_cup: {x: 0.0, y: 0.0, z: -0.010}
+  chip_bag: {x: 0.0, y: 0.0, z: -0.015}
+  napkin: {x: 0.0, y: 0.0, z: -0.015}
+  apple: {x: 0.0, y: 0.0, z: -0.020}
+
+# v6 model (YOLO26n) — 6 classes
+class_to_bin:
+  aluminum_can: recyclable
+  plastic_bottle: recyclable
+  paper_cup: landfill
+  chip_bag: landfill
+  napkin: compost
+  apple: compost
+
+# v5 model (YOLO26n) — 10 classes — rollback:
+# class_to_bin:
+#   aluminum_can: recyclable
+#   plastic_bottle: recyclable
+#   juice_box: recyclable
+#   paper_cup: landfill
+#   chip_bag: landfill
+#   styrofoam_cup: landfill
+#   napkin: compost
+#   paper_bag: compost
+#   apple: compost
+#   orange: compost

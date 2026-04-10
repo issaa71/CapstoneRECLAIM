@@ -1,0 +1,55 @@
+# Global costmap configuration
+# Full map for path planning — uses static map from SLAM + live sensor data
+#
+# Layers: static (from /map) + obstacle (from /scan) + inflation
+
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      update_frequency: 1.0       # Hz — less frequent, covers whole map
+      publish_frequency: 0.5      # Hz — for visualization
+      global_frame: map
+      robot_base_frame: base_link
+      use_sim_time: false
+
+      # Not a rolling window — tracks the full static map
+      rolling_window: false
+      resolution: 0.05            # Match SLAM resolution
+
+      # Track the /map topic dimensions automatically
+      track_unknown_space: true
+
+      # Robot footprint — circular, 0.20m radius
+      robot_radius: 0.20
+
+      plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
+
+      static_layer:
+        plugin: "nav2_costmap_2d::StaticLayer"
+        map_subscribe_transient_local: true
+        # Subscribes to /map from SLAM Toolbox or map_server
+
+      obstacle_layer:
+        plugin: "nav2_costmap_2d::ObstacleLayer"
+        enabled: true
+        observation_sources: scan
+        scan:
+          topic: /scan
+          sensor_model: ray
+          max_obstacle_height: 2.0
+          min_obstacle_height: 0.0
+          obstacle_max_range: 6.0
+          obstacle_min_range: 0.15
+          raytrace_max_range: 8.0
+          raytrace_min_range: 0.15
+          clearing: true
+          marking: true
+          data_type: "LaserScan"
+          inf_is_valid: false
+
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        cost_scaling_factor: 3.0
+        inflation_radius: 0.25
+
+      always_send_full_costmap: true

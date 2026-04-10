@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  RECLAIM Arm SRDF — Updated March 20, 2026
+  4-DOF arm (J1-J4), J5 wrist rotate + J6 gripper fixed.
+  Defines planning groups, virtual joint, default poses, and self-collision matrix.
+-->
+<robot name="reclaim_arm">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- Virtual joint: world to base_link (fixed)  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <virtual_joint name="virtual_joint" type="fixed" parent_frame="world" child_link="base_link"/>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- Planning group: arm (J1-J4)                -->
+  <!-- Chain: base_link → tool0                   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <group name="arm">
+    <chain base_link="base_link" tip_link="tool0"/>
+  </group>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- Named poses                                -->
+  <!-- ═══════════════════════════════════════════ -->
+  <group_state name="straight_up" group="arm">
+    <joint name="base_joint" value="0"/>
+    <joint name="shoulder_joint" value="0"/>
+    <joint name="elbow_joint" value="0"/>
+    <joint name="wrist_pitch_joint" value="0"/>
+  </group_state>
+
+  <group_state name="home" group="arm">
+    <joint name="base_joint" value="0.0"/>
+    <joint name="shoulder_joint" value="0.567"/>
+    <joint name="elbow_joint" value="1.331"/>
+    <joint name="wrist_pitch_joint" value="-1.867"/>
+  </group_state>
+
+  <group_state name="search" group="arm">
+    <joint name="base_joint" value="0.0"/>
+    <joint name="shoulder_joint" value="1.263"/>
+    <joint name="elbow_joint" value="1.354"/>
+    <joint name="wrist_pitch_joint" value="-1.931"/>
+  </group_state>
+
+  <group_state name="intermediate" group="arm">
+    <joint name="base_joint" value="0.0"/>
+    <joint name="shoulder_joint" value="0.863"/>
+    <joint name="elbow_joint" value="1.331"/>
+    <joint name="wrist_pitch_joint" value="-1.867"/>
+  </group_state>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- End effector                               -->
+  <!-- ═══════════════════════════════════════════ -->
+  <end_effector name="gripper" parent_link="tool0" group="arm"/>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- Disable self-collision: adjacent pairs     -->
+  <!-- Joint limits prevent actual collisions.    -->
+  <!-- This avoids false positives from mesh      -->
+  <!-- overlap at joint connection points.        -->
+  <!-- ═══════════════════════════════════════════ -->
+  <disable_collisions link1="base_link" link2="shoulder_link" reason="Adjacent"/>
+  <disable_collisions link1="shoulder_link" link2="upper_arm_link" reason="Adjacent"/>
+  <disable_collisions link1="upper_arm_link" link2="forearm_link" reason="Adjacent"/>
+  <disable_collisions link1="forearm_link" link2="wrist_pitch_link" reason="Adjacent"/>
+  <disable_collisions link1="wrist_pitch_link" link2="tool0" reason="Adjacent"/>
+  <disable_collisions link1="tool0" link2="gripper_link" reason="Adjacent"/>
+  <disable_collisions link1="wrist_pitch_link" link2="gripper_link" reason="Never"/>
+  <disable_collisions link1="wrist_pitch_link" link2="camera_link" reason="Adjacent"/>
+  <disable_collisions link1="tool0" link2="camera_link" reason="Never"/>
+
+  <!-- Non-adjacent pairs remain enabled for collision checking.
+       If false positives occur during planning, selectively disable specific pairs. -->
+
+</robot>

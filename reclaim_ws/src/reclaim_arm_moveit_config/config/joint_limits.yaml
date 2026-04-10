@@ -1,0 +1,24 @@
+# Joint limits for MoveIt2 planning
+# Velocity/acceleration based on servo datasheets at ~25-30% no-load max
+# DS3218: 7.48 rad/s no-load @ 6V | DS3240: 5.5 rad/s no-load @ 6V
+joint_limits:
+  base_joint:
+    has_velocity_limits: true
+    max_velocity: 2.0
+    has_acceleration_limits: true
+    max_acceleration: 4.0
+  shoulder_joint:
+    has_velocity_limits: true
+    max_velocity: 1.2
+    has_acceleration_limits: true
+    max_acceleration: 2.5
+  elbow_joint:
+    has_velocity_limits: true
+    max_velocity: 2.0
+    has_acceleration_limits: true
+    max_acceleration: 4.0
+  wrist_pitch_joint:
+    has_velocity_limits: true
+    max_velocity: 2.5
+    has_acceleration_limits: true
+    max_acceleration: 5.0

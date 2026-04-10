@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="reclaim_arm">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.00060581 -0.001246 -0.046464"
+        rpy="0 0 0" />
+      <mass
+        value="0.07337" />
+      <inertia
+        ixx="3.2568E-05"
+        ixy="5.8892E-09"
+        ixz="3.9477E-08"
+        iyy="1.9034E-05"
+        iyz="1.6679E-07"
+        izz="3.754E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="-1.5708 0 0" />
+      <geometry>
+        <mesh
+          filename="package://reclaim_arm_moveit_config/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="-1.5708 0 0" />
+      <geometry>
+        <mesh
+          filename="package://reclaim_arm_moveit_config/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="shoulder_link">
+    <inertial>
+      <origin
+        xyz="0.00046002 -0.0098996 0.01241"
+        rpy="0 0 0" />
+      <mass
+        value="0.037034" />
+      <inertia
+        ixx="2.9036E-06"
+        ixy="3.9477E-08"
+        ixz="-8.9959E-13"
+        iyy="6.9967E-06"
+        iyz="-1.6679E-07"
+        izz="7.2467E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://reclaim_arm_moveit_config/meshes/shoulder_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://reclaim_arm_moveit_config/meshes/shoulder_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="base_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="shoulder_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.953"
+      upper="3.230"
+      effort="10"
+      velocity="2" />
+  </joint>
+  <link
+    name="upper_arm_link">
+    <inertial>
+      <origin
+        xyz="1.3297E-14 -0.011444 0.052"
+        rpy="0 0 0" />
+      <mass
+        value="0.016627" />
+      <inertia
+        ixx="1.6412E-05"
+        ixy="1.486E-19"
+        ixz="-6.5645E-21"
+        iyy="7.5576E-06"
+        iyz="-3.0563E-21"
+        izz="1.0611E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://reclaim_arm_moveit_config/meshes/upper_arm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://reclaim_arm_moveit_config/meshes/upper_arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="shoulder_joint"
+    type="revolute">
+    <origin
+      xyz="0.01 0 0.013402"
+      rpy="0 0 0" />
+    <parent
+      link="shoulder_link" />
+    <child
+      link="upper_arm_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-2.073"
+      upper="1.597"
+      effort="15"
+      velocity="2" />
+  </joint>
+  <link
+    name="forearm_link">
+    <inertial>
+      <origin
+        xyz="0.0013458 -0.010048 0.074887"
+        rpy="0 0 0" />
+      <mass
+        value="0.087067" />
+      <inertia
+        ixx="1.827E-05"
+        ixy="3.3358E-07"
+        ixz="1.6198E-12"
+        iyy="1.7804E-05"
+        iyz="7.3166E-16"
+        izz="6.5989E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://reclaim_arm_moveit_config/meshes/forearm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://reclaim_arm_moveit_config/meshes/forearm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="elbow_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 0.104"
+      rpy="0 0 0" />
+    <parent
+      link="upper_arm_link" />
+    <child
+      link="forearm_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.508"
+      upper="2.497"
+      effort="10"
+      velocity="2" />
+  </joint>
+  <link
+    name="wrist_pitch_link">
+    <inertial>
+      <origin
+        xyz="-0.024668 -0.011695 0.043013"
+        rpy="0 0 0" />
+      <mass
+        value="0.10081" />
+      <inertia
+        ixx="5.5279E-05"
+        ixy="-1.5687E-07"
+        ixz="3.235E-09"
+        iyy="2.0779E-05"
+        iyz="-5.646E-08"
+        izz="6.76E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://reclaim_arm_moveit_config/meshes/wrist_pitch_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://reclaim_arm_moveit_config/meshes/wrist_pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wrist_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 0.147"
+      rpy="0 0 0" />
+    <parent
+      link="forearm_link" />
+    <child
+      link="wrist_pitch_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-1.932"
+      upper="0.872"
+      effort="10"
+      velocity="2" />
+  </joint>
+  <link
+    name="tool0">
+    <inertial>
+      <origin
+        xyz="0.010754 -0.0010765 0.39245"
+        rpy="0 0 0" />
+      <mass
+        value="0.037311" />
+      <inertia
+        ixx="2.0211E-05"
+        ixy="-2.8835E-08"
+        ixz="1.8401E-08"
+        iyy="1.638E-05"
+        iyz="-1.2682E-07"
+        izz="1.1617E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="-0.01 0 -0.45672"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://reclaim_arm_moveit_config/meshes/tool0.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="-0.01 0 -0.45672"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://reclaim_arm_moveit_config/meshes/tool0.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="wrist_to_tool0"
+    type="fixed">
+    <origin
+      xyz="0 0 0.150"
+      rpy="0 0 0" />
+    <parent
+      link="wrist_pitch_link" />
+    <child
+      link="tool0" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- Gripper: child of tool0, OUTSIDE MoveIt2 chain   -->
+  <!-- 0 rad = fully open (1400µs)                      -->
+  <!-- 0.836 rad = fully closed (1755µs)                -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <link name="gripper_link">
+    <inertial>
+      <origin xyz="0 0 0.02" rpy="0 0 0"/>
+      <mass value="0.142"/>
+      <inertia ixx="1e-5" ixy="0" ixz="0" iyy="1e-5" iyz="0" izz="1e-5"/>
+    </inertial>
+  </link>
+  <joint name="gripper_joint" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="tool0"/>
+    <child link="gripper_link"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="0.0" upper="0.836" effort="5" velocity="2"/>
+  </joint>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- Camera: OAK-D Lite mounted on wrist_pitch_link   -->
+  <!-- Offset measured from CAD: (-55mm, -12mm, +64mm)  -->
+  <!-- Camera looks along wrist_pitch_link Z axis       -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <link name="camera_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.061"/>
+      <inertia ixx="1e-5" ixy="0" ixz="0" iyy="1e-5" iyz="0" izz="1e-5"/>
+    </inertial>
+  </link>
+  <joint name="wrist_to_camera" type="fixed">
+    <origin xyz="-0.068 -0.012 0.064" rpy="0 0 0"/>
+    <parent link="wrist_pitch_link"/>
+    <child link="camera_link"/>
+  </joint>
+
+  <!-- Optical frame: camera_link has Z=forward (along arm) -->
+  <!--   camera_optical_frame: X right, Y down, Z forward  -->
+  <!--   Rotation maps: Z_cam→Z_opt, -Y_cam→X_opt, -X_cam→Y_opt -->
+  <!--   This may need tuning if image appears flipped      -->
+  <link name="camera_optical_frame"/>
+  <joint name="camera_to_optical" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 -1.5708"/>
+    <parent link="camera_link"/>
+    <child link="camera_optical_frame"/>
+  </joint>
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- ros2_control: Servo Hardware Interface            -->
+  <!-- Calibration from March 19, 2026                   -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <ros2_control name="servo_hardware" type="system">
+    <hardware>
+      <plugin>reclaim_servo_hardware/ServoHardwareInterface</plugin>
+      <param name="serial_port">/tmp/teensy_arm</param>
+      <param name="baud_rate">115200</param>
+    </hardware>
+
+    <!-- J1 Base — DS3218 270° — not inverted -->
+    <joint name="base_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <param name="zero_us">1229</param>
+      <param name="scale">0.002356</param>
+      <param name="inverted">false</param>
+      <param name="min_us">400</param>
+      <param name="max_us">2600</param>
+    </joint>
+
+    <!-- J2 Shoulder — DS3240 270° — not inverted (axis 0 -1 0) -->
+    <joint name="shoulder_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <param name="zero_us">1673</param>
+      <param name="scale">0.002356</param>
+      <param name="inverted">false</param>
+      <param name="min_us">995</param>
+      <param name="max_us">2553</param>
+    </joint>
+
+    <!-- J3 Elbow — DS3218 270° — not inverted -->
+    <joint name="elbow_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <param name="zero_us">1320</param>
+      <param name="scale">0.002356</param>
+      <param name="inverted">false</param>
+      <param name="min_us">680</param>
+      <param name="max_us">2380</param>
+    </joint>
+
+    <!-- J4 Wrist Pitch — DS3218 270° — not inverted (axis 0 -1 0) -->
+    <joint name="wrist_pitch_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <param name="zero_us">2230</param>
+      <param name="scale">0.002356</param>
+      <param name="inverted">false</param>
+      <param name="min_us">1410</param>
+      <param name="max_us">2600</param>
+    </joint>
+
+    <!-- J6 Gripper — DS3218 + LewanSoul claw -->
+    <!-- 0 rad = fully open (1400µs), 0.836 rad = fully closed (1755µs) -->
+    <joint name="gripper_joint">
+      <command_interface name="position"/>
+      <state_interface name="position"/>
+      <param name="zero_us">1400</param>
+      <param name="scale">0.002356</param>
+      <param name="inverted">false</param>
+      <param name="min_us">1400</param>
+      <param name="max_us">1755</param>
+    </joint>
+  </ros2_control>
+
+</robot>
